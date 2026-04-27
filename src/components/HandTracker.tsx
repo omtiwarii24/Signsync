@@ -58,7 +58,8 @@ const HandTracker = () => {
   };
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:8080", {
+    // 🚀 UPDATED: Pointing to your live Render backend!
+    socketRef.current = io("https://signsync-api.onrender.com", {
       transports: ["websocket", "polling"],
       reconnectionAttempts: 5
     });
@@ -283,17 +284,16 @@ const HandTracker = () => {
     <div className="relative min-h-screen w-full bg-[#030303] text-slate-200 overflow-hidden font-sans selection:bg-purple-500/30">
       
       {/* 🌌 THE 3D MATRIX BACKGROUND 🌌 */}
-      {/* Z-0 layer fix so it sits clearly over the black base background */}
       <div className="absolute inset-0 w-full h-full z-0 opacity-70">
         <Spline scene="https://prod.spline.design/LhVDp6AQTXoG5DOm/scene.splinecode" />
       </div>
 
-      {/* 🌌 THE EXISTING COSMIC EFFECTS (Overlaid on top of 3D) 🌌 */}
+      {/* 🌌 THE EXISTING COSMIC EFFECTS */}
       <div className="absolute top-[-150px] left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[400px] bg-gradient-to-b from-purple-600/30 via-fuchsia-600/10 to-transparent blur-[100px] rounded-full pointer-events-none opacity-80 animate-pulse" style={{ animationDuration: '4s' }} />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0" />
       <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-cyan-600/10 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* 📱 TOP NAVBAR (Glassmorphism) */}
+      {/* 📱 TOP NAVBAR */}
       <nav className="relative z-50 w-full flex justify-center pt-6 px-4">
         <div className="flex items-center justify-between w-full max-w-5xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.05] rounded-full px-6 py-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
           {/* Logo */}
@@ -331,7 +331,7 @@ const HandTracker = () => {
       {/* 🚀 MAIN CONTENT AREA */}
       <main className="relative z-10 flex flex-col items-center w-full max-w-5xl mx-auto gap-8 pt-12 pb-24 px-4">
         
-        {/* TRANSLATE TAB (Core App) */}
+        {/* TRANSLATE TAB */}
         {activeTab === "Translate" && (
           <>
             <div className="w-full flex flex-col items-center text-center space-y-6 mb-4 animate-fade-in-up">
@@ -354,7 +354,6 @@ const HandTracker = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full animate-fade-in-up">
-              
               <div className="col-span-1 md:col-span-8 flex flex-col gap-4">
                 <div className="relative flex justify-center items-center bg-slate-950/40 backdrop-blur-sm rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 aspect-[4/3] w-full group transition-all duration-500 hover:border-purple-500/30 hover:shadow-[0_0_40px_-15px_rgba(168,85,247,0.3)]">
                   
@@ -393,7 +392,6 @@ const HandTracker = () => {
               </div>
 
               <div className="col-span-1 md:col-span-4 flex flex-col gap-6">
-                
                 <div className="bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[2rem] p-6 flex-1 shadow-2xl relative overflow-hidden group hover:border-white/10 transition-colors">
                   <h3 className="relative text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-3 z-10">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
@@ -445,7 +443,6 @@ const HandTracker = () => {
         )}
 
         {/* --- INJECTING YOUR NEW MODULES --- */}
-
         {activeTab === "Dictionary" && <DictionaryPage />}
         {activeTab === "Practice" && <PracticePage />}
         {activeTab === "Settings" && <SettingsPage />}

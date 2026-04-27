@@ -37,7 +37,11 @@ export default function PracticePage() {
 
   // 1. Initialize WebSockets & AI Logic
   useEffect(() => {
-    socketRef.current = io("http://localhost:8080");
+    // 🚀 UPDATED: Pointing to your live Render backend!
+    socketRef.current = io("https://signsync-api.onrender.com", {
+      transports: ["websocket", "polling"],
+      reconnectionAttempts: 5
+    });
 
     socketRef.current.on("prediction", (data: { word: string; confidence: number }) => {
       const translatedWord = data.word.toUpperCase();
