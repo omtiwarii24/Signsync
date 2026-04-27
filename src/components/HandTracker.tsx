@@ -58,10 +58,12 @@ const HandTracker = () => {
   };
 
   useEffect(() => {
-    // 🚀 CONNECTING TO THE LIVE RENDER BACKEND
+    // 🚀 FORCING THE CLOUD CONNECTION
     socketRef.current = io("https://signsync-api.onrender.com", {
       transports: ["websocket", "polling"],
-      reconnectionAttempts: 5
+      reconnectionAttempts: 5,
+      // Adding explicit path to help bypass routing issues
+      path: "/socket.io" 
     });
 
     socketRef.current.on("prediction", async (data: { word: string; confidence: number }) => {

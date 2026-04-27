@@ -37,10 +37,11 @@ export default function PracticePage() {
 
   // 1. Initialize WebSockets & AI Logic
   useEffect(() => {
-    // 🚀 CONNECTING TO THE LIVE RENDER BACKEND
+    // 🚀 FORCING THE CLOUD CONNECTION
     socketRef.current = io("https://signsync-api.onrender.com", {
       transports: ["websocket", "polling"],
-      reconnectionAttempts: 5
+      reconnectionAttempts: 5,
+      path: "/socket.io" // Explicit path
     });
 
     socketRef.current.on("prediction", (data: { word: string; confidence: number }) => {
