@@ -37,7 +37,7 @@ export default function PracticePage() {
 
   // 1. Initialize WebSockets & AI Logic
   useEffect(() => {
-    // 🚀 UPDATED: Pointing to your live Render backend!
+    // 🚀 CONNECTING TO THE LIVE RENDER BACKEND
     socketRef.current = io("https://signsync-api.onrender.com", {
       transports: ["websocket", "polling"],
       reconnectionAttempts: 5
@@ -82,7 +82,7 @@ export default function PracticePage() {
   useEffect(() => {
     if (!isAILoaded) return;
 
-    let isCameraActive = true; // 🚨 KILL SWITCH
+    let isCameraActive = true; 
 
     // @ts-ignore
     const hands = new window.Hands({
@@ -135,11 +135,11 @@ export default function PracticePage() {
         videoRef.current.play();
 
         const sendFramesToAI = async () => {
-          if (!isCameraActive) return; // 🚨 STOP LOOP
+          if (!isCameraActive) return; 
           if (videoRef.current && !videoRef.current.paused) {
             try {
               await hands.send({ image: videoRef.current });
-            } catch (e) {} // Catch aborts safely
+            } catch (e) {} 
           }
           if (isCameraActive) {
             requestAnimationFrame(sendFramesToAI);
@@ -153,9 +153,8 @@ export default function PracticePage() {
 
     startCamera();
 
-    // 🚨 CLEANUP BLOCK
     return () => {
-      isCameraActive = false; // Flip kill switch first
+      isCameraActive = false; 
       if (videoRef.current && videoRef.current.srcObject) {
         const stream = videoRef.current.srcObject as MediaStream;
         stream.getTracks().forEach(track => track.stop());
